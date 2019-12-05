@@ -1,0 +1,45 @@
+{
+  "name": "react-native-auto-placeholder-loading",
+  "title": "React Native Auto Placeholder Loading",
+  "version": "1.0.0",
+  "description": "React Native Package to automatically set a placeholder while your components are loading",
+  "main": "index.js",
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eaeao/react-native-auto-placeholder-loading.git"
+  },
+  "keywords": [
+    "React",
+    "Native",
+    "RN",
+    "Like",
+    "Facebook",
+    "Skeleton",
+    "Placeholder",
+    "Loader",
+    "Loading",
+    "Progress"
+  ],
+  "author": {
+    "name": "JerryPark",
+    "email": "mail@jerrypark.me",
+    "url" : "https://jerrypark.me/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eaeao/react-native-auto-placeholder-loading/issues"
+  },
+  "homepage": "https://github.com/eaeao/react-native-auto-placeholder-loading#readme",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": "^16.8.1",
+    "react-native": ">=0.59.0-rc.0 <1.0.x"
+  },
+  "devDependencies": {
+    "react": "^16.8.3",
+    "react-native": "^0.59.10"
+  }
+}
