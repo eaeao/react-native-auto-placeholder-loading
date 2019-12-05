@@ -6,60 +6,67 @@ export default class RNPlaceholder extends Component {
 
         this.clonedChilds = React.Children.map(props.children, rootChild => {
             if (!rootChild) return rootChild
-            if (rootChild.type && typeof rootChild.type === 'object') {
-                return this.recursiveMap(rootChild, rootChild.props.children, this.recursiveMapCallback)
-            }
-            return this.recursiveMap(rootChild, (new cloned.type(rootChild.props)).render(), this.recursiveMapCallback)
+            return this.recursiveMap(this, rootChild)
         })
     }
 
-    recursiveMap = (parent, children, fn) => {
-        return React.Children.map(children, child => {
-            if (!React.isValidElement(child)) {
-                return child;
+    recursiveMap = (parent, child) => {
+        if (!React.isValidElement(child)) {
+            return child;
+        }
+        let renderedChild = typeof child.type === 'function' ? (new child.type(child.props)).render() : child
+        const getChildren = (_child) => {
+            if (Array.isArray(_child.props.children)) {
+                return _child.props.children
+            } else if (typeof _child.props.children === 'object') {
+                return [_child.props.children]
             }
+        }
 
-            if (child.props.children) {
-                child = React.cloneElement(child, {
-                    children: child.type && ['Text'].includes(child.type.displayName) ? '' : this.recursiveMap(child, child.props.children, fn)
-                });
-            }
-
-            return fn(parent, child);
-        });
+        const children = getChildren(renderedChild);
+        if (children) {
+            renderedChild = React.cloneElement(renderedChild, {
+                children: children.map(_child => this.recursiveMap(renderedChild, _child))
+            });
+        }
+        return this.elementPaser(parent, renderedChild);
     }
 
-    recursiveMapCallback = (parent, child) => {
-        const displayName = child.type.target ? child.type.target.displayName : child.type.displayName
+    elementPaser = (parent, child) => {
+        const renderedChild = typeof child.type === 'function' ? (new child.type(child.props)).render() : child
+        const getName = (_child) => {
+            if (typeof _child.type === 'string') {
+                return _child.type
+            } else if (_child.type && _child.type.displayName) {
+                return _child.type.displayName
+            }
+        }
+
+        const displayName = getName(renderedChild)
+        if (!displayName) return renderedChild
+
         let newProps = {
-            ...child.props,
+            ...renderedChild.props,
             ...{
+                key: renderedChild.props.key || `${Math.random()}`,
                 style: {
-                    ...child.props.style,
-                    ...((this.props.defaultStyle && this.props.defaultStyle[displayName]) || {})
+                    ...renderedChild.props.style,
+                    ...this.props.defaultStyle ? this.props.defaultStyle[displayName] : {}
                 }
-            }
+            },
         }
-
+        console.log(displayName, newProps)
         if (displayName === 'Text') {
-            newProps = {
-                style: {
-                    width: newProps.style.width || `${Math.random() * (100 - 20) + 20}%`,
-                    backgroundColor: newProps.style.backgroundColor  ||  '#f0f0f0'
-                },
-                children: null
-            }
+            newProps.children = ' ';
+            newProps.style.width = newProps.style.width || `${Math.random() * (100 - 50) + 30}%`;
+            newProps.style.backgroundColor = newProps.style.backgroundColor  ||  '#f0f0f0';
         } else if (displayName === 'Image') {
-            newProps = {
-                style: {
-                    backgroundColor: newProps.style.backgroundColor  || '#f0f0f0',
-                    borderRadius: newProps.style.borderRadius  || 10
-                },
-                source: null
-            }
+            newProps.source = null;
+            newProps.style.borderRadius = newProps.style.borderRadius  || 10;
+            newProps.style.backgroundColor = newProps.style.backgroundColor  ||  '#f0f0f0';
         }
 
-        return React.cloneElement(child, newProps)
+        return React.cloneElement(renderedChild, newProps);
     }
 
     render() {

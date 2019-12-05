@@ -3,13 +3,13 @@
 ## Getting started
 
 ```bash
-$ npm i react-native-auto-placeholder-loading --save
+$ npm i https://github.com/eaeao/react-native-auto-placeholder-loading.git --save
 ```
 
 or
 
 ```bash
-$ yarn add react-native-auto-placeholder-loading
+$ yarn add https://github.com/eaeao/react-native-auto-placeholder-loading.git
 ```
 
 
@@ -20,9 +20,9 @@ import AutoPlaceholderLoading from 'react-native-auto-placeholder-loading';
 
 const App = () => (
   <AutoPlaceholderLoading loading={isFetched}>
-  	<View>
-	  	<Text>Hello World</Text>
+	  <View>
+	  		<Text>Hello World</Text>
 	  </View>
-  </Placeholder>
+  </AutoPlaceholderLoading>
 );
 ```
