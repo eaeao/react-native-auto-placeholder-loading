@@ -3,13 +3,13 @@
 ## Getting started
 
 ```bash
-$ npm i https://github.com/eaeao/react-native-auto-placeholder-loading.git --save
+$ npm i react-native-auto-placeholder-loading --save
 ```
 
 or
 
 ```bash
-$ yarn add https://github.com/eaeao/react-native-auto-placeholder-loading.git
+$ yarn add react-native-auto-placeholder-loading
 ```
 
 
