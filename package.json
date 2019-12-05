@@ -1,7 +1,7 @@
 {
   "name": "react-native-auto-placeholder-loading",
   "title": "React Native Auto Placeholder Loading",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "React Native Package to automatically set a placeholder while your components are loading",
   "main": "index.js",
   "scripts": {
